@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Основы Vue</title>
+    <link rel="stylesheet" href="theme.css" />
+  </head>
+  <body>
+
+  <div class="container" id="app">
+    <div class="card">
+      <h1>План по изучению Vue.js</h1>
+
+      <div class="steps">
+        <div class="steps-content">
+          <!-- Сюда необходимо вывести текст активного шага по его индексу -->
+          <p> {{ steps[currentStep].text }} </p>
+        </div>
+        <ul class="steps-list">
+          <li class="steps-item" 
+          v-for="(elem, ind) in steps"
+          :class="{
+            active: ind == activeIndex, 
+            done: ind < activeIndex 
+          }"
+          >
+          <span @click="setActive(ind)">{{ ind +1 }}</span> {{ elem.title }} </li>
+          <!-- <li class="steps-item done"><span>2</span> {{ steps[1].title }}</li>
+          <li class="steps-item active"><span>3</span> Шаг 3</li>
+          <li class="steps-item"><span>4</span> Шаг 4</li> -->
+        </ul>
+        <div v-if="activeIndex <= 4">
+          <button class="btn" :disabled="disabled" @click="prev(), log()">Назад</button>
+          <button class="btn primary" @click="nextOfFinish(), log()">{{ forward }}</button>
+        </div>
+        <div v-else>
+          <button class="btn primary" @click="reset">Repeat</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/vue@next"></script>
+  <script src="vue.js"></script>
+  </body>
+</html>
